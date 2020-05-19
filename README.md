@@ -1,27 +1,74 @@
-# Wsearch
+ng new wsearch --routing
+ng g c searchBar
+ng g c pageList
+$ ng g s wikipedia
+== api https://www.mediawiki.org/wiki/API:Main_page
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
+==GET request
+api.php?action=query&list=search&srsearch=Nelson%20Mandela&utf8=&format=json 
+https://en.wikipedia.org/w/api.php?
+action=query&
+format=json&
+list=search&
+utf8=1&
+srsearch=space
+at app.module.ts
+import {HttpClientModule} from '@angular/common/http';
+-- to know rxjs write it at https://out.stegrider.now.sh/
+const {fromEvent} = Rx;
+const {map} = RxOperators;
+const input= document.createElement('input');
+const container =document.querySelector('.container');
+container.appendChild(input);
+const observable =fromEvent(input,'input')
+.pipe(
+map(event =>event.target.value),
+map(value =>parseInt(value)),
+map(value =>{
+if (isNaN(value)){
+throw new Error ('enter a  number')
+}
+  return value;
+})
+  
+)
+observable.subscribe({
+next(value){
+  console.log(`your value is ${value}`);
+},
+error(err){
+  console.error('bad thing is happien',err.message)
+}
+})
+//this specific tool
+observable;
 
-## Development server
+<!-- go to Rxjs.dev decumentation -->
+<!-- second exp -->
+const { Observable }=Rx;
+const observable=new Observable((subscribe)=>{
+ subscribe.next(1);
+ subscribe.complete();
+ subscribe.error(new Error('there is an error'));
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+});
+ observable.subscribe({
+ next(value){
+ console.log('the value is ',value);
+ },
+ complete(){
+    console.log('the value is complete ');
+ },
+ error(err){
+   console.log('bad error',err.message)
+ }
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+});
+observable;
+<!-- build -->
+npm install -g angular-cli-ghpages 
+ ng build --prod --base-href https://asmaak.github.io/angular-card/ 
+ ngh --dir dist/card
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

@@ -1,0 +1,19 @@
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <th>Title</th>
+    <th>WordCount</th>
+    <th>Sinppet</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let page of pages">
+      <td>
+        <a  [href]=" 'https://en.wikipedia.org?crud='+page.pageid" target="_blank">
+        {{page.title}}
+      </a>
+      </td>
+      <td>{{page.wordcount}}</td>
+      <td [innerHTML]="page.snippet"></td>
+    </tr>
+  </tbody>
+</table>
+
